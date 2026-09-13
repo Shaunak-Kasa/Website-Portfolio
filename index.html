@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shaunak Kasa — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e14;
+    --panel: #10151f;
+    --panel-border: #1e2733;
+    --text: #d7dde5;
+    --text-dim: #7c8797;
+    --accent: #5eead4;
+    --accent-dim: #2f5d56;
+    --amber: #f0b429;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    background-image:
+      linear-gradient(var(--panel-border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--panel-border) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-attachment: fixed;
+    background-position: center;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(10, 14, 20, 0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--panel-border);
+  }
+  nav .wrap {
+    max-width: 900px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+  }
+  nav .brand { color: var(--accent); }
+  nav .links { display: flex; gap: 20px; }
+  nav .links a { color: var(--text-dim); }
+  nav .links a:hover { color: var(--accent); text-decoration: none; }
+
+  /* HERO */
+  header.hero {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 90px 24px 70px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .prompt-line {
+    font-family: var(--mono);
+    color: var(--accent);
+    font-size: 0.9rem;
+    margin-bottom: 18px;
+  }
+  .prompt-line::before { content: "$ "; color: var(--text-dim); }
+  .cursor {
+    display: inline-block;
+    width: 8px;
+    height: 1em;
+    background: var(--accent);
+    margin-left: 4px;
+    vertical-align: text-bottom;
+    animation: blink 1.1s steps(1) infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  h1 {
+    font-family: var(--mono);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    max-width: 20ch;
+  }
+  header.hero p.role {
+    margin-top: 18px;
+    color: var(--text-dim);
+    font-size: 1.05rem;
+    max-width: 52ch;
+  }
+  .hero-links {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .hero-btn {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--text);
+    border: 1px solid var(--panel-border);
+    background: var(--panel);
+    padding: 9px 16px;
+    border-radius: 3px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .hero-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .hero-btn svg { width: 15px; height: 15px; fill: currentColor; }
+
+  /* SECTIONS */
+  section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 64px 24px;
+    border-top: 1px solid var(--panel-border);
+  }
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 14px;
+  }
+  .section-tag::before { content: "// "; color: var(--accent-dim); }
+
+  h2 {
+    font-family: var(--mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 22px;
+    color: var(--text);
+  }
+
+  section p, section li { max-width: 68ch; color: var(--text); }
+  section p + p { margin-top: 14px; }
+
+  /* ABOUT */
+  #about .wrap-inner { display: grid; grid-template-columns: 1fr; gap: 12px; }
+
+  /* PROJECT */
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 20px 0 26px;
+  }
+  .chip {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--accent);
+    border: 1px solid var(--accent-dim);
+    background: rgba(94, 234, 212, 0.06);
+    padding: 4px 10px;
+    border-radius: 3px;
+  }
+  .feature-list {
+    list-style: none;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .feature-list li {
+    padding-left: 22px;
+    position: relative;
+  }
+  .feature-list li::before {
+    content: "›";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: var(--mono);
+  }
+  .feature-list b { color: var(--text); }
+
+  /* PROCESS + VIDEO */
+  .process-step {
+    margin-bottom: 22px;
+  }
+  .process-step h3 {
+    font-family: var(--mono);
+    font-size: 1rem;
+    color: var(--amber);
+    margin-bottom: 6px;
+  }
+
+  .video-block {
+    margin: 34px 0;
+    border: 1px solid var(--panel-border);
+    background: var(--panel);
+    padding: 18px;
+    border-radius: 4px;
+  }
+  .video-block .label {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+  }
+  .video-frame {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%; /* 16:9 */
+    background: #000;
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .video-frame iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border: 0;
+  }
+
+  /* FOOTER */
+  footer {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 50px 24px 80px;
+    border-top: 1px solid var(--panel-border);
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  footer a { color: var(--text-dim); }
+  footer a:hover { color: var(--accent); }
+
+  @media (max-width: 600px) {
+    header.hero { padding: 60px 24px 50px; }
+    section { padding: 46px 24px; }
+    nav .links { gap: 12px; font-size: 0.78rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cursor { animation: none; opacity: 1; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="brand">shaunak@portfolio</span>
+    <div class="links">
+      <a href="#about">about</a>
+      <a href="#project">project</a>
+      <a href="#process">process</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="prompt-line">whoami<span class="cursor"></span></div>
+  <h1>Shaunak Kasa — CS student building toward cybersecurity &amp; AI.</h1>
+  <p class="role">
+    <!-- EDIT: 2-3 sentence intro. Who you are, what you study, what you're
+         working toward. Keep it conversational, not a resume dump. -->
+    I started digging into networking, programming, databases, and
+    cybersecurity at the college level while I was still in high school —
+    and I haven't stopped chasing that curiosity since. CompTIA Security+
+    certified, and always looking for the next system worth understanding
+    and securing.
+  </p>
+
+  <div class="hero-links">
+    <!-- EDIT: replace with your real LinkedIn URL -->
+    <a class="hero-btn" href="https://www.linkedin.com/in/shaunak-kasa/" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+      LinkedIn
+    </a>
+    <!-- EDIT: replace with your real GitHub URL -->
+    <a class="hero-btn" href="https://github.com/Shaunak-Kasa" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.5 0-.24-.01-1.04-.01-1.88-2.78.62-3.37-1.22-3.37-1.22-.46-1.2-1.11-1.52-1.11-1.52-.9-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.29 9.29 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.42.2 2.47.1 2.73.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.95.68 1.92 0 1.39-.01 2.51-.01 2.85 0 .28.18.6.69.5A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>
+      GitHub
+    </a>
+    <!-- EDIT: replace with your real email -->
+    <a class="hero-btn" href="mailto:shaunkasa@gmail.com">
+      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      Email
+    </a>
+  </div>
+</header>
+
+<section id="about">
+  <div class="section-tag">about</div>
+  <h2>A bit more about me</h2>
+  <div class="wrap-inner">
+    <p>
+      My path into CS started early: I dual-enrolled in college-level
+      courses in networking, programming, databases, and cybersecurity
+      while still in high school, because I wanted to actually understand
+      how systems work under the hood, not just use them. That drive is
+      what pushed me to earn my CompTIA Security+ certification and hasn't
+      let up since.
+    </p>
+    <p>
+      That curiosity found a real home during my last internship, where I
+      got to work hands-on with Zero Trust architecture (NIST 800-207),
+      build out AWS networking, and configure a GitHub Actions CI pipeline
+      to enforce policy-as-code with OPA/Rego. Getting to design systems
+      that are secure by default — not secured as an afterthought — is
+      exactly the kind of work I want to keep building toward.
+    </p>
+    <p>
+      Off the keyboard, I'm just as competitive: I play soccer, tennis, and
+      golf.
+    </p>
+  </div>
+</section>
+
+<section id="project">
+  <div class="section-tag">project</div>
+  <h2>GT Movies Store</h2>
+  <p>
+    GT Movies Store is a Django web application that lets users browse
+    detailed information about movies and place orders to purchase them.
+    Beyond browsing, users can also list, create, edit, and delete their
+    own movie reviews — giving the app a genuine community layer on top of
+    the core storefront. Each movie listing includes its name, price,
+    description, and an image, all served through a clean, user-friendly
+    interface.
+  </p>
+
+  <div class="stack">
+    <span class="chip">Django</span>
+    <span class="chip">Python</span>
+    <span class="chip">SQLite</span>
+    <span class="chip">HTML/CSS</span>
+  </div>
+
+  <ul class="feature-list">
+    <li><b>Movie catalog:</b> Displays all available movies with their name, price, description, and image, giving users a clear overview of what's available to purchase.</li>
+    <li><b>Movie detail &amp; purchase:</b> Lets a user view full details on a single movie and place an order to purchase it.</li>
+    <li><b>Review management:</b> Users can list, create, edit, and delete their own movie reviews, giving the app a real community layer beyond just browsing.</li>
+    <li><b>User-friendly interface:</b> The overall layout and navigation are designed to make browsing, reviewing, and purchasing feel intuitive rather than cluttered.</li>
+  </ul>
+</section>
+
+<section id="process">
+  <div class="section-tag">process</div>
+  <h2>How I built it</h2>
+
+  <div class="process-step">
+    <h3>Approach</h3>
+    <p>
+      I broke the project up across multiple sessions rather than trying to
+      do it in one push, which made it easier to come back with a clearer
+      head and catch things I'd missed.
+    </p>
+  </div>
+
+  <div class="process-step">
+    <h3>Navigating questions &amp; doubts</h3>
+    <p>
+      Whenever I got stuck, I gave myself 20 minutes to really try to work
+      through the problem on my own. If I still hadn't found a solution
+      after that, I'd reach out to a peer for help or check Ed Discussion.
+    </p>
+  </div>
+
+  <div class="video-block">
+    <div class="label">// demo video</div>
+    <div class="video-frame">
+      <iframe
+        src="https://www.youtube.com/embed/0wgH7u-CKMk"
+        title="GT Movies Store demo"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <div class="process-step">
+    <h3>What I'd do differently</h3>
+    <p>
+      If I could go back, I'd have recorded my conversations with peers and
+      the solutions I found through Ed Discussion as I worked through
+      problems, rather than only afterward. At the time, I was worried
+      about keeping the final video concise and didn't want to risk it
+      running long, so I held off on recording. In hindsight, it would have
+      been easy enough to simply trim the footage down during editing —
+      capturing the process as it happened would have made for a much
+      richer look at how the project actually came together.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Shaunak Kasa</span>
+  <span><a href="mailto:shaunkasa@gmail.com">shaunkasa@gmail.com</a> · <a href="https://github.com/Shaunak-Kasa" target="_blank" rel="noopener">GitHub</a></span>
+</footer>
+
+</body>
+</html>
